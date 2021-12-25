@@ -1,14 +1,22 @@
-import react from "react";
-
+import React from "react";
+import { useState } from 'react';
 
 
 function NavBar() {
+    var [filterOption, setData]= useState("last");
+    
+ function filterHandler (event) {
+        setData(event.target.value)
+        //console.log(event.target.value)
+    }
+    
 
     return(
         <div id="navbar">
-            <select>
-                <option>Last 24h</option>
-                 </select>
+            <select name={filterOption} onChange={filterHandler}>
+                <option value="last">Last 24h</option>
+                <option value="first">asdasdasd</option>
+            </select>
             </div>
     )
 

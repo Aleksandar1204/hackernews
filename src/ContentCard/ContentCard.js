@@ -3,9 +3,7 @@ import '../App.css';
 
 import { useState } from 'react';
 import React, { useEffect , useRef} from 'react';
-import TimeAgo from 'javascript-time-ago'
-import ReactTimeAgo from 'react-time-ago'
-import en from 'javascript-time-ago/locale/en.json'
+
 
 import './ContentCard.css'
 
@@ -27,7 +25,7 @@ function ContentCard(props) {
     
    
 
-    console.log(url1)
+    //console.log(url1)
         return(
             <div id="card">
             <h3>{props.title}</h3>
