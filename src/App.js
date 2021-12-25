@@ -93,7 +93,7 @@ console.log(arr)
          <div id="navbar">
                 <select name={filterOption} onChange={filterHandler}>
                     <option value="last">Last 24h</option>
-                    <option value="first">asdasdasd</option>
+                    <option value="first">Unordered</option>
                 </select>
                 </div>
           <div className="App-header">
