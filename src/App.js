@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import React, { useEffect , useRef} from 'react';
 import ContentCard from './ContentCard/ContentCard';
+import HackerNews from './assets/HackerNews.png'
 
 
 
@@ -13,6 +14,7 @@ function App(props) {
   var [data, setData]= useState([]);
   var [filterClicked, setFilter]= useState(false);
   var [popularityClicked, setPopularity]= useState(false);
+  var [textClicked, setText]= useState(false);
  var [searchTerm, setSearchTerm]= useState("")
  
   var [filterOption, setOption]= useState("");
@@ -68,7 +70,7 @@ function App(props) {
 },[]);
 
 function filterHandler () {
-  
+  setText(false)
   setFilter(true)
 setPopularity(false)
 }
@@ -76,11 +78,18 @@ setPopularity(false)
 function popularitYHandler ()  {
 
   
-  
+  setText(false)
   setFilter(false)
   setPopularity(true)
 }
 
+function textHandler ()  {
+
+  setText(true)
+  
+  setFilter(false)
+  setPopularity(false)
+}
 function searchHandler (event)  {
 setSearchTerm(event.target.value)
 event.preventDefault();
@@ -122,18 +131,39 @@ if(popularityClicked){
      //console.log(popularPosts);
      //popularityClicked =false;
   }
-console.log(data)
+
+  var textPosts = [];
+  data.map(dat=>{
+    if(dat[0].text !=undefined){
+      return textPosts.push(dat)
+    }
+    
+  })
+
+
+console.log(textPosts)
 
 
 
       return (
         <div className="App">
+
+          <div id="searchcontainer">
+            <div id="hackcontent">
+            <img id="hackerimg" src={HackerNews}></img>
+          <span id="imgtextspan">
+            <p>Search</p>
+            <p>Hacker News</p>
+          </span>
+            </div>
           <input id="search" type="text" placeholder="Search stories by title, url or author" onChange={(e)=>searchHandler(e)}/>
+          </div>
+          
          <div id="navbar">
            
-        
-                <button onClick={()=>popularitYHandler()}>Popularity</button>
-                <button onClick={()=>filterHandler()}>Last 24h</button>
+                <span class="spanbuttons">in </span><button class="buttons" onClick={()=>textHandler()}>Stories</button>
+                <span class="spanbuttons">by </span><button class="buttons" onClick={()=>popularitYHandler()}>Popularity</button>
+                <span class="spanbuttons">for </span><button class="buttons" onClick={()=>filterHandler()}>Last 24h</button>
               
                 </div>
           <div className="App-header">
@@ -144,6 +174,9 @@ console.log(data)
             }else if (val[0].by.toLowerCase().includes(searchTerm.toLowerCase())){
               return val;
             }else if (val[0].url!=undefined &&  val[0].url.toLowerCase().includes(searchTerm.toLowerCase())){
+              return val;
+            }
+            else if (val[0].title!=undefined &&  val[0].title.toLowerCase().includes(searchTerm.toLowerCase())){
               return val;
             }
           }).map((dat)=>(
@@ -158,17 +191,35 @@ console.log(data)
               return val;
             }else if (val[0].url!=undefined &&  val[0].url.toLowerCase().includes(searchTerm.toLowerCase())){
               return val;
+            }else if (val[0].title!=undefined &&  val[0].title.toLowerCase().includes(searchTerm.toLowerCase())){
+              return val;
             }
           }).map((dat)=>(
-            <ContentCard key={dat[0].id} title={dat[0].title} score={dat[0].score} by={dat[0].by} url={dat[0].url} text={dat[0].text != undefined ? dat[0].text :""}
+            <ContentCard key={dat[0].id} title={dat[0].title} score={dat[0].score} by={dat[0].by} url={dat[0].url} text={dat[0].title != undefined ? dat[0].text :""}
             time={dat[1] }
               />
-          )): data.filter((val)=>{
+          )):textClicked === true ? textPosts.filter((val)=>{
             if(searchTerm===""){
               return val
             }else if (val[0].by.toLowerCase().includes(searchTerm.toLowerCase())){
               return val;
             }else if (val[0].url!=undefined &&  val[0].url.toLowerCase().includes(searchTerm.toLowerCase())){
+              return val;
+            }else if (val[0].title!=undefined &&  val[0].title.toLowerCase().includes(searchTerm.toLowerCase())){
+              return val;
+            }
+          }).map((dat)=>(
+            <ContentCard key={dat[0].id} title={dat[0].title} score={dat[0].score} by={dat[0].by} url={dat[0].url} text={dat[0].text != undefined ? dat[0].text :""}
+            time={dat[1] }
+              />
+          )):data.filter((val)=>{
+            if(searchTerm===""){
+              return val
+            }else if (val[0].by.toLowerCase().includes(searchTerm.toLowerCase())){
+              return val;
+            }else if (val[0].url!=undefined &&  val[0].url.toLowerCase().includes(searchTerm.toLowerCase())){
+              return val;
+            }else if (val[0].title!=undefined &&  val[0].title.toLowerCase().includes(searchTerm.toLowerCase())){
               return val;
             }
           }).map((dat)=>(

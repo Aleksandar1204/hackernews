@@ -1,5 +1,63 @@
 
 #search{
-  width: 30%;
+  width: 40%;
+  border-radius: 40px;
+  height: 40px;
+  margin: 20px;
+  
+ 
+}
+#searchcontainer{
+margin-bottom: 40px;
+}
+::placeholder {
+  font-size: 20px;
+  padding: 10px;
+}
 
+input:not(placeholder-shown) {
+  font-size: 20px;
+  padding-left: 20px;
+  
+}
+
+#hackerimg{
+  width: 60px;
+  height: 60px;
+  margin-right: 5px;
+  
+}
+
+#searchcontainer{
+  display: flex;
+  
+}
+.spanbuttons{
+  margin-left: 20px;
+}
+.buttons{
+  padding: 10px;
+  border-radius: 5xpx;
+  margin-left: 5px;
+
+}
+#hackcontent{
+  display: flex;
+  margin-right: 200px;
+  padding: 15px;
+}
+
+#imgtextspan{
+  line-height: 0.1;
+}
+
+#imgtextspan p{
+  font-size: 20px;
+}
+
+#navbar{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

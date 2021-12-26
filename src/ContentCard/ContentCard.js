@@ -33,7 +33,11 @@ function ContentCard(props) {
                 <li>{`${props.score} points`}</li>
                 <li>{props.by}</li>
                 <li><a href={props.url} target="_blank">{url1}</a></li>
-                <li>{days>1 ? days + "days ago": hours > 24 && days === 1? days + "day ago" : minutes >=60 ? hours +"hours ago" : hours === 1 ? hours +"hour ago" : minutes === 1 ? minutes + "minute ago" : seconds >=60 ? minutes+ "minutes ago" : "now"}</li>
+                <li>{days > 1 ? days + "days ago"
+                : hours > 24 && days === 1? days + "day ago" 
+                : minutes >=60 ? hours +"hours ago" : hours === 1 ? hours +"hour ago" 
+                : minutes === 1 ? minutes + "minute ago" : seconds >=60 ? minutes+ "minutes ago" 
+                : "now"}</li>
                 
                 
             </ul>
