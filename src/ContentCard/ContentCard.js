@@ -37,6 +37,7 @@ function ContentCard(props) {
                 
                 
             </ul>
+            <p>{props.text}</p>
             </div>
         )
     }

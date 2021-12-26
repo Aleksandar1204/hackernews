@@ -8,7 +8,7 @@ import ContentCard from './ContentCard/ContentCard';
 
 
 
-function App() {
+function App(props) {
  
   var [data, setData]= useState([]);
   var [filterClicked, setFilter]= useState(false);
@@ -24,32 +24,32 @@ function App() {
    axios.all([
     axios.get('https://hacker-news.firebaseio.com/v0/topstories.json').then(response=>{
       
-    
+     
     response.data.map(itemId=>{  
       return  axios.get(`https://hacker-news.firebaseio.com/v0/item/${itemId}.json`).then(response=>{
+      
+      
        
-     if(i<=60){
+     if(i<=50){
       
      
         const oneDay = 24 * 60 * 60 * 1000;
         var firstDate = new Date(response.data.time *1000);
         var secondDate = new Date();
-       
         var days = Math.round(Math.abs((secondDate - firstDate) / oneDay));
         var hours = Math.round(Math.abs(secondDate - firstDate) / 36e5);
         var minutes = hours * 60;
         var seconds = minutes * 60;
-        
-       
      //console.log(hours)
+     
       timeArr[i] = {days,hours,minutes,seconds}
       items[i]=[response.data,timeArr[i]];
+     
+      
        i++;    
-       if(i === 60){
+       if(i === 50){
          setData(items)
-         //console.log(items);
-         //console.log(timeArr)
-         
+       
        }
      }        
        }) 
@@ -83,6 +83,7 @@ function popularitYHandler ()  {
 
 function searchHandler (event)  {
 setSearchTerm(event.target.value)
+event.preventDefault();
 }
 // console.log(filterOption)
 var lastHours = [];
@@ -121,8 +122,8 @@ if(popularityClicked){
      //console.log(popularPosts);
      //popularityClicked =false;
   }
+console.log(data)
 
-  
 
 
       return (
@@ -137,23 +138,41 @@ if(popularityClicked){
                 </div>
           <div className="App-header">
           
-          {popularityClicked === true ? popularPosts.map((dat)=>(
-            <ContentCard key={dat[0].id} title={dat[0].title} score={dat[0].score} by={dat[0].by} url={dat[0].url} 
+          {popularityClicked === true ? popularPosts.filter((val)=>{
+            if(searchTerm===""){
+              return val
+            }else if (val[0].by.toLowerCase().includes(searchTerm.toLowerCase())){
+              return val;
+            }else if (val[0].url!=undefined &&  val[0].url.toLowerCase().includes(searchTerm.toLowerCase())){
+              return val;
+            }
+          }).map((dat)=>(
+            <ContentCard key={dat[0].id} title={dat[0].title} score={dat[0].score} by={dat[0].by} url={dat[0].url} text={dat[0].text != undefined ? dat[0].text :""}
             time={dat[1]}
               />
           )):
-          filterClicked === true ? lastHours.map((dat)=>(
-            <ContentCard key={dat[0].id} title={dat[0].title} score={dat[0].score} by={dat[0].by} url={dat[0].url} 
+          filterClicked === true ? lastHours.filter((val)=>{
+            if(searchTerm===""){
+              return val
+            }else if (val[0].by.toLowerCase().includes(searchTerm.toLowerCase())){
+              return val;
+            }else if (val[0].url!=undefined &&  val[0].url.toLowerCase().includes(searchTerm.toLowerCase())){
+              return val;
+            }
+          }).map((dat)=>(
+            <ContentCard key={dat[0].id} title={dat[0].title} score={dat[0].score} by={dat[0].by} url={dat[0].url} text={dat[0].text != undefined ? dat[0].text :""}
             time={dat[1] }
               />
           )): data.filter((val)=>{
             if(searchTerm===""){
               return val
-            }else if (val[0].by.includes(searchTerm)){
+            }else if (val[0].by.toLowerCase().includes(searchTerm.toLowerCase())){
+              return val;
+            }else if (val[0].url!=undefined &&  val[0].url.toLowerCase().includes(searchTerm.toLowerCase())){
               return val;
             }
           }).map((dat)=>(
-            <ContentCard key={dat[0].id} title={dat[0].title} score={dat[0].score} by={dat[0].by} url={dat[0].url} 
+            <ContentCard key={dat[0].id} title={dat[0].title} score={dat[0].score} by={dat[0].by} url={dat[0].url} text={dat[0].text != undefined ? dat[0].text :""} 
             time={dat[1]}
               />
           ))
