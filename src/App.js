@@ -1,10 +1,10 @@
-import logo from './logo.svg';
+
 import './App.css';
 import axios from 'axios';
 import { useState } from 'react';
 import React, { useEffect , useRef} from 'react';
 import ContentCard from './ContentCard/ContentCard';
-import NavBar from './NavBar/NavBar';
+
 
 
 
@@ -13,7 +13,7 @@ function App() {
   var [data, setData]= useState([]);
   var [filterClicked, setFilter]= useState(false);
   var [popularityClicked, setPopularity]= useState(false);
- 
+ var [searchTerm, setSearchTerm]= useState("")
  
   var [filterOption, setOption]= useState("");
   var [popularityOption, setPopularityOption]= useState("");
@@ -80,6 +80,10 @@ function popularitYHandler ()  {
   setFilter(false)
   setPopularity(true)
 }
+
+function searchHandler (event)  {
+setSearchTerm(event.target.value)
+}
 // console.log(filterOption)
 var lastHours = [];
 
@@ -123,6 +127,7 @@ if(popularityClicked){
 
       return (
         <div className="App">
+          <input id="search" type="text" placeholder="Search stories by title, url or author" onChange={(e)=>searchHandler(e)}/>
          <div id="navbar">
            
         
@@ -141,7 +146,13 @@ if(popularityClicked){
             <ContentCard key={dat[0].id} title={dat[0].title} score={dat[0].score} by={dat[0].by} url={dat[0].url} 
             time={dat[1] }
               />
-          )): data.map((dat)=>(
+          )): data.filter((val)=>{
+            if(searchTerm===""){
+              return val
+            }else if (val[0].by.includes(searchTerm)){
+              return val;
+            }
+          }).map((dat)=>(
             <ContentCard key={dat[0].id} title={dat[0].title} score={dat[0].score} by={dat[0].by} url={dat[0].url} 
             time={dat[1]}
               />
