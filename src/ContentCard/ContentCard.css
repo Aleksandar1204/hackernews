@@ -1,8 +1,7 @@
 #card{
 
-    border-top: 1px solid grey;
-    border-left: 1px solid grey;
-    border-right: 1px solid grey;
+    border: 1px solid grey;
+    
     border-width: 100%;
     padding: 10px;
     height: 70px;
@@ -12,9 +11,14 @@
     
 }
 
+ul li{
+    margin-left: 5px;
+}
+
 #cardcontainer{
     display: flex;
     justify-content: center;
+    margin: 20px;
 }
 
 #card h3{

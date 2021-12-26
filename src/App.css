@@ -8,12 +8,27 @@
  
 }
 #searchcontainer{
-margin-bottom: 30px;
+margin-bottom: 10px;
 margin-top: 30px;
 }
+
 ::placeholder {
   font-size: 20px;
   padding: 10px;
+}
+
+.back-to-top{
+  width: 45px;
+  height: 45px;
+  margin-left: 5px;
+  padding: 5px;
+}
+#scrollcontainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  
 }
 
 input:not(placeholder-shown) {
@@ -28,7 +43,10 @@ input:not(placeholder-shown) {
   margin-right: 5px;
   
 }
-
+#hottitle{
+  font-size: 35px;
+  color: rgb(92, 92, 92)
+}
 #searchcontainer{
   display: flex;
   
@@ -45,7 +63,8 @@ input:not(placeholder-shown) {
 }
 #hackcontent{
   display: flex;
-  margin-right: 200px;
+  margin-right: 150px;
+  margin-left: 50px;
   padding: 15px;
 }
 
@@ -62,5 +81,6 @@ input:not(placeholder-shown) {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+  
 }

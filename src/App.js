@@ -5,7 +5,7 @@ import { useState } from 'react';
 import React, { useEffect , useRef} from 'react';
 import ContentCard from './ContentCard/ContentCard';
 import HackerNews from './assets/HackerNews.png'
-
+import { AiOutlineArrowUp } from 'react-icons/ai';
 
 
 
@@ -139,9 +139,14 @@ if(popularityClicked){
     }
     
   })
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // for smoothly scrolling
+    });
+  };
 
-
-console.log(textPosts)
+console.log(data)
 
 
 
@@ -160,7 +165,7 @@ console.log(textPosts)
           </div>
           
          <div id="navbar">
-           
+                  <p id="hottitle">Hot</p>
                 <span className="spanbuttons">in </span><button className="buttons" onClick={()=>textHandler()}>Stories</button>
                 <span className="spanbuttons">by </span><button className="buttons" onClick={()=>popularitYHandler()}>Popularity</button>
                 <span className="spanbuttons">for </span><button className="buttons" onClick={()=>filterHandler()}>Last 24h</button>
@@ -228,8 +233,11 @@ console.log(textPosts)
               />
           ))
            }
-      
           </div>
+          <div id="scrollcontainer"><span id="scrollbtntext">Back to top </span><button onClick={scrollToTop}  className="back-to-top">
+          <AiOutlineArrowUp size={20}/>
+        </button></div>
+          
         </div>
       );
  
