@@ -8,10 +8,15 @@ import NavBar from './NavBar/NavBar';
 
 
 
-function App(props) {
+function App() {
  
   var [data, setData]= useState([]);
-  var [filterOption, setOption]= useState("last");
+  var [filterClicked, setFilter]= useState(false);
+  var [popularityClicked, setPopularity]= useState(false);
+ 
+ 
+  var [filterOption, setOption]= useState("");
+  var [popularityOption, setPopularityOption]= useState("");
   var i=0;
   var items = [];
   var timeArr = [];
@@ -59,46 +64,84 @@ function App(props) {
  
   useEffect(() => {  
     getDatas()
+   
 },[]);
 
-function filterHandler (event) {
-  setOption(event.target.value)
+function filterHandler () {
   
+  setFilter(true)
+setPopularity(false)
+}
+
+function popularitYHandler ()  {
+
+  
+  
+  setFilter(false)
+  setPopularity(true)
 }
 // console.log(filterOption)
-var arr = [];
+var lastHours = [];
 
 data.map(dat=>{
-  return dat[1].hours <=24 ? arr.push(dat):null
+  return dat[1].hours <=24 ? lastHours.push(dat):null
 })
-console.log(arr)
-  // if(filterOption === "last"){
-   
-    
+//console.log(arr)
+  
 
-   
-    console.log(data);
-    if(filterOption === "last"){
-      arr.map(dat=>{
-        return dat[1].hours <=24 ? arr.sort(function(a,b){
-   
-           return b[1].hours-a[1].hours;
-         }
-         
-         ):null
-       })
+if(filterClicked){
+  
+  console.log(filterOption)
+  
+lastHours.sort(function(a,b){
+
+       return b[1].hours-a[1].hours;
+     
+     
+     
+   })
+
+  }
+  
+  var popularPosts = [];
+  data.map(dat=>{
+    return popularPosts.push(dat)
+  })
+
+if(popularityClicked){
+  console.log(popularityOption)
+    popularPosts.sort(function(a,b){
+       return b[0].score-a[0].score;
+     }  
+     )
+     //console.log(popularPosts);
+     //popularityClicked =false;
+  }
+
+  
+
+
       return (
-    
         <div className="App">
          <div id="navbar">
-                <select name={filterOption} onChange={filterHandler}>
-                    <option value="last">Last 24h</option>
-                    <option value="first">Unordered</option>
-                </select>
+           
+        
+                <button onClick={()=>popularitYHandler()}>Popularity</button>
+                <button onClick={()=>filterHandler()}>Last 24h</button>
+              
                 </div>
           <div className="App-header">
           
-          {arr.map((dat)=>(
+          {popularityClicked === true ? popularPosts.map((dat)=>(
+            <ContentCard key={dat[0].id} title={dat[0].title} score={dat[0].score} by={dat[0].by} url={dat[0].url} 
+            time={dat[1]}
+              />
+          )):
+          filterClicked === true ? lastHours.map((dat)=>(
+            <ContentCard key={dat[0].id} title={dat[0].title} score={dat[0].score} by={dat[0].by} url={dat[0].url} 
+            time={dat[1] }
+              />
+          )): data.map((dat)=>(
             <ContentCard key={dat[0].id} title={dat[0].title} score={dat[0].score} by={dat[0].by} url={dat[0].url} 
             time={dat[1]}
               />
@@ -108,31 +151,10 @@ console.log(arr)
           </div>
         </div>
       );
-    }else {
-      return (
-    
-        <div className="App">
-         <div id="navbar">
-                <select name={filterOption} onChange={filterHandler}>
-                    <option value="last">Last 24h</option>
-                    <option value="first">asdasdasd</option>
-                </select>
-                </div>
-          <div className="App-header">
-          
-          {data.map((dat)=>(
-            <ContentCard key={dat[0].id} title={dat[0].title} score={dat[0].score} by={dat[0].by} url={dat[0].url} 
-            time={dat[1]}
-              />
-          ))
-           }
-      
-          </div>
-        </div>
-      );
+ 
     }
   
-    }
+    
 
 
 export default App;
