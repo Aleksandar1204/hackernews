@@ -161,9 +161,9 @@ console.log(textPosts)
           
          <div id="navbar">
            
-                <span class="spanbuttons">in </span><button class="buttons" onClick={()=>textHandler()}>Stories</button>
-                <span class="spanbuttons">by </span><button class="buttons" onClick={()=>popularitYHandler()}>Popularity</button>
-                <span class="spanbuttons">for </span><button class="buttons" onClick={()=>filterHandler()}>Last 24h</button>
+                <span className="spanbuttons">in </span><button className="buttons" onClick={()=>textHandler()}>Stories</button>
+                <span className="spanbuttons">by </span><button className="buttons" onClick={()=>popularitYHandler()}>Popularity</button>
+                <span className="spanbuttons">for </span><button className="buttons" onClick={()=>filterHandler()}>Last 24h</button>
               
                 </div>
           <div className="App-header">

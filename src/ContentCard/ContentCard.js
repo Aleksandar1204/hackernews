@@ -27,6 +27,7 @@ function ContentCard(props) {
 
     //console.log(url1)
         return(
+            <div id="cardcontainer">
             <div id="card">
             <h3>{props.title}</h3>
             <ul>
@@ -42,6 +43,7 @@ function ContentCard(props) {
                 
             </ul>
             <p>{props.text}</p>
+            </div>
             </div>
         )
     }
